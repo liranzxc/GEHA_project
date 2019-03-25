@@ -12,7 +12,7 @@
 <body>
     <div class="container-fluid">
         <div class="row no-gutter">
-          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image" style="background-size: cover;background-position: center;background-image: url({{ url_for('static', filename='img/background.jpg') }});"></div>
           <div class="col-md-8 col-lg-6">
             <div class="login d-flex align-items-center py-5">
               <div class="container">
@@ -21,12 +21,13 @@
                   <div class="col-md-9 col-lg-8 mx-auto">
                     <h3 class="login-heading mb-4">פורטל מטופלים גהה</h3>
                     
+                    <!-- inputID  inputPassword -->
                     <form method="POST" action="/">
-                      <div class="form-label-group">
+                      <div class="form-group">
                         <input type="text" name="inputID" class="form-control" placeholder="Please enter ID" required autofocus>
                       </div>
       
-                      <div class="form-label-group">
+                      <div class="form-group">
                         <input type="password"  name="inputPassword"  class="form-control" placeholder="Password" required>
                       
                       </div>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+	<title>Contact V4</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="static/css/util.css">
+	<link rel="stylesheet" type="text/css" href="static/css/main.css">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="static/css/bootstrap-slider.css" rel="stylesheet">
+	<link href="static/css/bootstrap-slider.min.css" rel="stylesheet">
+<!--===============================================================================================-->
+</head>
+<body>
+
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form" action="/interview" method="POST">
+				<span class="contact100-form-title">
+					שאלון מצב אישי
+				</span>
+				<div style="text-align: center">
+                <!-- Feeling-->
+				<h3 style="text-align: center;"> היום אני מרגיש ? </h3>
+				<br>
+			
+				
+				
+				<label class="radio-inline">
+					<input type="radio" name="feel" value="100">
+					<img src="/static/img/happy.JPG" style="width:60px;">
+				  </label>
+
+				  <label class="radio-inline">
+					<input type="radio" name="feel" value="50">
+					<img src="/static/img/med.JPG" style="width:60px;">
+				  </label>
+				  
+				  <label class="radio-inline">
+					<input type="radio" name="feel" value="0">
+					<img src="/static/img/bad.JPG" style="width:60px;">
+				  </label>
+
+				  	<!-- anxiety -->
+				  <h3 style="text-align: center;"> אני מרגיש חרדה ?  </h3>
+				  <br>
+				
+				  <input id="ex13"  name="anxiety" type="text" data-slider-ticks="[0, 25, 50, 75, 100]" data-slider-ticks-snap-bounds="25" data-slider-ticks-labels='["1", "2", "3", "4", "5"]'/>
+					
+                   <!-- depress -->
+				  <h3 style="text-align: center;"> אני מרגיש דיכאון ?  </h3>
+				  <br>
+				
+				  <input id="ex14"  name="depress" type="text" data-slider-ticks="[0, 25, 50, 75, 100]" data-slider-ticks-snap-bounds="25" data-slider-ticks-labels='["1", "2", "3", "4", "5"]'/>
+					
+
+				      <!-- fear -->
+					  <h3 style="text-align: center;"> אני מרגיש פחד ?  </h3>
+					  <br>
+					
+					  <input id="ex15"  name="fear" type="text" data-slider-ticks="[0, 25, 50, 75, 100]" data-slider-ticks-snap-bounds="25" data-slider-ticks-labels='["1", "2", "3", "4", "5"]'/>
+						
+
+
+					  <!-- sleep-->
+
+					  <h3 style="text-align: center;"> איך ישנתי הלילה ?  </h3>
+					  <br>
+				  
+					  <label class="radio-inline">
+						  <input type="radio" name="sleep" value="100">
+						  <img src="/static/img/sleep_good.jpeg" style="width:60px;">
+						</label>
+	  
+						<label class="radio-inline">
+						  <input type="radio" name="sleep" value="50">
+						  <img src="/static/img/sleep_med.jpeg" style="width:60px;">
+						</label>
+						
+						<label class="radio-inline">
+						  <input type="radio" name="sleep" value="0">
+						  <img src="/static/img/sleep_bad.jpeg" style="width:60px;">
+						</label>
+	  
+
+						
+					  <!-- sleep-->
+
+					  <h3 style="text-align: center;">  היה לי תאבון ?   </h3>
+					  <br>
+				  
+					 
+					  <label class="radio-inline">
+						  <input type="radio" name="appetite" value="100">
+						  <img src="/static/img/appetite_Yes.jpeg" style="width:60px;">
+						</label>
+	  
+						<label class="radio-inline">
+						  <input type="radio" name="appetite" value="0">
+						  <img src="/static/img/appetite_No.jpeg" style="width:60px;">
+						
+						</label>
+
+					</div>
+					
+	
+
+				<div class="container-contact100-form-btn">
+					<div class="wrap-contact100-form-btn">
+						<div class="contact100-form-bgbtn"></div>
+						<button class="contact100-form-btn">
+							<span>
+								Submit
+								<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+							</span>
+						</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/bootstrap/js/popper.js"></script>
+	<script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/select2/select2.min.js"></script>
+	<script>
+		$(".selection-2").select2({
+			minimumResultsForSearch: 20,
+			dropdownParent: $('#dropDownSelect1')
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="static/vendor/daterangepicker/moment.min.js"></script>
+	<script src="static/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="static/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="static/js/main.js"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type='text/javascript' src="static/js/bootstrap-slider.js"></script>
+
+
+	<script>
+
+
+		// With JQuery
+		$("#ex13").slider({
+			ticks: [100, 75, 50, 25, 0],
+			ticks_labels: ['5', '4', '3', '2', '1'],
+			ticks_snap_bounds: 25
+		});
+
+			// With JQuery
+			$("#ex14").slider({
+			ticks: [100, 75, 50, 25, 0],
+			ticks_labels: ['5', '4', '3', '2', '1'],
+			ticks_snap_bounds: 25
+		});
+
+			// With JQuery
+			$("#ex15").slider({
+			ticks: [100, 75, 50, 25, 0],
+			ticks_labels: ['5', '4', '3', '2', '1'],
+			ticks_snap_bounds: 25
+		});
+				
+				</script>
+</body>
+</html>
