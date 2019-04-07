@@ -16,7 +16,7 @@ def valid_login(usernameid,password):
         return False,None
 
 
-## Test slider !!! 
+## Chart
 @app.route("/chart")
 def chart():
     #values , labels = zip(*generateChart())
@@ -27,7 +27,6 @@ def chart():
         
     return render_template('chart.html', values=values, labels=labels)
 
-## Test slider
 
 
 
@@ -39,7 +38,7 @@ def chat():
 
 
 
-## Test slider !!! 
+## interview section 
 @app.route("/interview",methods=["GET","POST"])
 def interview():
     if request.method == 'POST':
@@ -59,7 +58,7 @@ def interview():
 
 
 
-## Test slider
+##  Home page login
 @app.route("/",methods=["GET","POST"])
 def login():
     if request.method == 'POST':
