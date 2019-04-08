@@ -78,6 +78,10 @@
 		<div class="wrap-contact100">
 			<form class="contact100-form validate-form" action="/interview" method="POST">
 				<span class="contact100-form-title">
+
+					{% if ErrorMessage %}
+						<h4 style="color:red">{{ErrorMessage}}</h4>
+					{%endif%}
 					שאלון מצב אישי
 				</span>
 				<div style="text-align: center">
@@ -130,17 +134,21 @@
 				  
 					  <label class="radio-inline">
 						  <input type="radio" name="sleep" value="100">
-						  <img src="/static/img/sleep_good.jpeg" style="width:60px;">
+							<img src="/static/img/sleep_good.jpeg" style="width:60px;">
+							<p>ישנתי טוב</p>
 						</label>
 	  
 						<label class="radio-inline">
 						  <input type="radio" name="sleep" value="50">
-						  <img src="/static/img/sleep_med.jpeg" style="width:60px;">
+							<img src="/static/img/sleep_med.jpeg" style="width:60px;">
+							<p>ישנתי מעט</p>
 						</label>
 						
 						<label class="radio-inline">
 						  <input type="radio" name="sleep" value="0">
-						  <img src="/static/img/sleep_bad.jpeg" style="width:60px;">
+							<img src="/static/img/sleep_bad.jpeg" style="width:60px;">
+							<p>לא ישנתי</p>
+
 						</label>
 	  
 
@@ -153,13 +161,14 @@
 					 
 					  <label class="radio-inline">
 						  <input type="radio" name="appetite" value="100">
-						  <img src="/static/img/appetite_Yes.jpeg" style="width:60px;">
+							<img src="/static/img/appetite_Yes.jpeg" style="width:60px;">
+							<p>כן </p>
 						</label>
 	  
 						<label class="radio-inline">
 						  <input type="radio" name="appetite" value="0">
 						  <img src="/static/img/appetite_No.jpeg" style="width:60px;">
-						
+							<p>לא </p>
 						</label>
 
 					</div>
@@ -229,21 +238,21 @@
 		// With JQuery
 		$("#ex13").slider({
 			ticks: [100, 75, 50, 25, 0],
-			ticks_labels: ['5', '4', '3', '2', '1'],
+			ticks_labels: ['במידה רבה<br> 5', '4', '3', '2', 'כלל לא <br> 1'],
 			ticks_snap_bounds: 25
 		});
 
 			// With JQuery
 			$("#ex14").slider({
 			ticks: [100, 75, 50, 25, 0],
-			ticks_labels: ['5', '4', '3', '2', '1'],
+			ticks_labels: ['במידה רבה<br> 5', '4', '3', '2', 'כלל לא <br> 1'],
 			ticks_snap_bounds: 25
 		});
 
 			// With JQuery
 			$("#ex15").slider({
 			ticks: [100, 75, 50, 25, 0],
-			ticks_labels: ['5', '4', '3', '2', '1'],
+			ticks_labels: ['במידה רבה<br> 5', '4', '3', '2', 'כלל לא <br> 1'],
 			ticks_snap_bounds: 25
 		});
 				

@@ -60,6 +60,48 @@
 
 <br>
 <br>
+<br>
+   
+     
+      {% if MessgeError %}
+      <div align="right">
+      <h3 align="center" style="color:blue;">{{MessgeError}}</h3>
+      </div>
+      {% else %}
+      <div align="right">
+        <h2> ציונך לתאריך {{LastDate}}</h2>
+        <h2> הינו {{lastScore}}</h2>
+    
+
+
+      {% if Message == 1%}
+
+      <h2>כל הכבוד ! </h2>
+      <br>
+      <h2>נראה שאתה בכיוון הנכון </h2>
+
+      <img src="/static/img/happySmile.jpg" style="width: 150px">
+
+      {% else %}
+
+        {%if Message == 0%}
+      <h2>ציון נמוך </h2> <!--  or please fill message if bad-->
+      <br>
+      <h2>נראה שאתה בכיוון יורד </h2>
+
+      <img src="/static/img/badsmile.jpg" style="width: 150px">
+
+        {%else %}
+        {% endif %}
+
+      {% endif %}
+    </div>
+
+      {% endif %}
+
+    
+      
+   
     <div style="width:100%;">
         <canvas id="canvas"></canvas>
     </div>
@@ -72,7 +114,7 @@
                     "{{item}}",
                   {% endfor %}
                 ],
-                yLabels: [ {% for item in range(100,0,-1) %}
+                yLabels: [ {% for item in range(100,-1,-1) %}
                     "{{item}}",
                   {% endfor %}],
                 datasets: [{
@@ -98,7 +140,7 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Month'
+                            labelString: 'תאריכים'
                         }
                     }],
                     yAxes: [{
@@ -107,7 +149,7 @@
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Request State'
+                            labelString: 'ציונים'
                         },
                         ticks: {
                             reverse: true

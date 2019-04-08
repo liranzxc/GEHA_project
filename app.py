@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,session
+from flask import Flask,render_template,request,session,flash,redirect,url_for
 from MySqlacademy import FetchType,ConstDic,MySqlHandlerAcademy
 from setting import Setting
 import time
@@ -8,6 +8,7 @@ app.secret_key = 'lee'
 
 
 _setting = Setting()
+
 db = MySqlHandlerAcademy(_setting.setting["host"],_setting.setting["username"],_setting.setting["password"],_setting.setting["database"])
 
 
@@ -23,15 +24,48 @@ def SaveScoreToDatabase(How_I_feel,How_I_Sleep,Do_I_Feel_depressed,Do_I_Feel_anx
 
     db.Insert("Personal_Feedback",How_I_feel,How_I_Sleep ## insert on cloud 
     ,Do_I_Feel_depressed,Do_I_Feel_anxiety,Do_I_Feel_Fear,Have_appetite,myscore,_Date,_User_ID)
-
-
-
-
-
-
-
-
     
+
+
+def ConvertToDateString(item : "tuple (Date,Score)"):
+    unix_date = item[0]
+    score = item[1]
+    local_time = time.localtime(unix_date)
+    local_time = time.strftime("%Y-%m-%d %H:%M:%S", local_time) 
+
+    return (local_time,score)
+
+
+
+
+
+def GetScoreUserFromDatabase(user_id : "User id for get points"):
+    PointQuery = {
+
+    ConstDic.TABLENAME : "Personal_Feedback",
+
+    ConstDic.SELECTED : ["Date","Score"],
+
+    ConstDic.FILTER : {
+
+            "User_ID" :user_id
+    },
+
+    ConstDic.TYPEFETCH : FetchType.FETCH_ALL
+
+    }
+
+    result = db.Select(PointQuery)
+
+
+    if(result):
+       sorted(result, key = lambda x: x[0]) 
+
+       result = list(map(ConvertToDateString ,result)) # map list >> each item do func
+       return result
+       #result = [ (1554643647, 100) , (1554643704, 40)   ]
+    else:
+        return None
 
 
 def valid_login(usernameid,password):
@@ -61,55 +95,77 @@ def chart():
     UserInformation = session.pop('userdata', None)
     session["userdata"] = list(UserInformation) ## save user information between pages
 
-    #values , labels = zip(*generateChart())
-    labels = ["January","test1","test2","March","April","May","June","July","August"]
-    values = [1,2,3,4,5,6,100,8,9,10,11]
-    #labels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ]
-    #values = ['Day off', 'Day off', 'Work day', 'Day off', 'Work day', 'Day off', 'Work day']
+    results = GetScoreUserFromDatabase(UserInformation[0]) ## to do check None
+    if(results == None):
+        return render_template('chart.html', values=[], labels=[],userdata=UserInformation,MessgeError="יש למלא שאלון מצב אישי על מנת לצפות בגרף")
+    else:
+        Dates,Scores = zip(*results)
+
+        lastDate,lastScore = Dates[-1],Scores[-1]
         
-    return render_template('chart.html', values=values, labels=labels,userdata=UserInformation)
-
-
+        if(len(Scores) > 2):
+            last2Score = Scores[-2]
+            good = -1
+            if(lastScore > last2Score):
+                good =1
+            else:
+                good = 0
+            return render_template('chart.html', values=Scores, labels=Dates,userdata=UserInformation,LastDate=lastDate,lastScore=lastScore,Message=good)
+        else:
+            return render_template('chart.html', values=Scores, labels=Dates,userdata=UserInformation,LastDate=lastDate,lastScore=lastScore,Message=None)
 
 
 
 @app.route("/chat")
 def chat():
-    return "chat page"
+    UserInformation = session.pop('userdata', None)
+    session["userdata"] = list(UserInformation) ## save user information between pages
+    return render_template('chatPage.html', userdata=UserInformation)
+ 
 
 
 
 ## interview section 
 @app.route("/interview",methods=["GET","POST"])
 def interview():
+
+    UserInformation = session.pop('userdata', None)
+    session["userdata"] = list(UserInformation) ## save user information between pages
+        
     if request.method == 'POST':
-        How_I_feel = (request.form["feel"])
-        How_I_Sleep = (request.form["sleep"]) 
-        Do_I_Feel_depressed = (request.form["depress"]) 
-        Do_I_Feel_anxiety = (request.form["anxiety"]) 
-        Do_I_Feel_Fear = (request.form["fear"])
-        Have_appetite = (request.form["appetite"])
-        myscore = eval(How_I_feel) * 0.3 + eval(How_I_Sleep) * 0.05 + eval(Do_I_Feel_depressed)*0.2 + eval(Do_I_Feel_anxiety) * 0.2 + eval(Do_I_Feel_Fear) * 0.2 + eval(Have_appetite) *0.05
-        
 
-        SaveScoreToDatabase(How_I_feel,How_I_Sleep,Do_I_Feel_depressed,Do_I_Feel_anxiety,
-        Do_I_Feel_Fear,Have_appetite,myscore)
+        try:
+            How_I_feel = (request.form["feel"])
+            How_I_Sleep = (request.form["sleep"]) 
+            Do_I_Feel_depressed = (request.form["depress"]) 
+            Do_I_Feel_anxiety = (request.form["anxiety"]) 
+            Do_I_Feel_Fear = (request.form["fear"])
+            Have_appetite = (request.form["appetite"])
+            myscore = eval(How_I_feel) * 0.3 + eval(How_I_Sleep) * 0.05 + eval(Do_I_Feel_depressed)*0.2 + eval(Do_I_Feel_anxiety) * 0.2 + eval(Do_I_Feel_Fear) * 0.2 + eval(Have_appetite) *0.05
+            
 
-        return "Good"
-        
+            SaveScoreToDatabase(How_I_feel,How_I_Sleep,Do_I_Feel_depressed,Do_I_Feel_anxiety,
+            Do_I_Feel_Fear,Have_appetite,myscore)
+
+            return redirect(url_for('chart'))
+            #return render_template("home.html",userdata=UserInformation)
+        except:
+                return render_template("contact.html",userdata=UserInformation,ErrorMessage="יש לענות על כל השאלות")
+
       
     else:
-        UserInformation = session.pop('userdata', None)
-        session["userdata"] = list(UserInformation) ## save user information between pages
-        return render_template("contact.html",userdata=UserInformation)
+         return render_template("contact.html",userdata=UserInformation)
 
 
 ##  Home page login
 @app.route("/home",methods=["GET"])
 def home():
     UserInformation = session.pop('userdata', None)
-    session["userdata"] = list(UserInformation) ## save user information between pages
-    return render_template("home.html",userdata=UserInformation)
+    if(not UserInformation):
+        return render_template("index.html")
+    else:
+        session["userdata"] = list(UserInformation) ## save user information between pages
+        return render_template("home.html",userdata=UserInformation)
 
 
 ##  Home page login
@@ -134,7 +190,74 @@ def login():
     else:
         return render_template("index.html")
 
+def GetMediceneFromTable(medicineId : "Medicine_id"):
+    MedicQuery = {
+    ConstDic.TABLENAME : "Medicine",
 
+    ConstDic.SELECTED : ["Medicine_Name","Description"],
+
+    ConstDic.FILTER : {
+
+            "Medicine_ID" :medicineId
+    },
+
+    ConstDic.TYPEFETCH : FetchType.FETCH_ONE
+
+    }
+
+    result = db.Select(MedicQuery)
+
+    return result
+
+
+
+
+def GetMedicationWithDesc():
+    UserInformation = session.pop('userdata', None)
+    session["userdata"] = list(UserInformation) ## save user information between pages
+    
+    User_id = UserInformation[0]
+
+    MedicUseQuery = {
+
+    ConstDic.TABLENAME : "Medicine_Use",
+
+    ConstDic.SELECTED : ["Medicine_ID"],
+
+    ConstDic.FILTER : {
+
+            "User_ID" :User_id
+    },
+
+    ConstDic.TYPEFETCH : FetchType.FETCH_ALL
+
+    }
+
+    result_FromMedicine_User = db.Select(MedicUseQuery)
+
+
+    mylist_of_medic = []
+    for Mediceine_id in result_FromMedicine_User:
+        result_from_Medicene_desc = GetMediceneFromTable(Mediceine_id[0])
+        mylist_of_medic.append(result_from_Medicene_desc)
+
+    return mylist_of_medic
+
+
+
+
+def Parser(dataComing : "input from user"):
+    if("Medication" in dataComing or "pill" in dataComing or "Medicines" in dataComing):
+        return GetMedicationWithDesc()
+
+
+@app.route("/chatbot" ,methods =["POST"])
+def chatbot():
+    dataComing = request.form["data"]
+    
+    text = str(list(Parser(dataComing)))
+
+    return text
 
 if __name__ == '__main__':
     app.run(debug=True)
