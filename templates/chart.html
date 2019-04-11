@@ -2,14 +2,12 @@
 <html lang="en">
 <head>
    <meta charset="utf-8" />
-   <title>Chart.js </title>
+   <title>צפייה בגרף </title>
  
    <!-- import plugin script -->
-   <script src='static/Chart.min.js'></script>
+   <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
  
-   <script src="https://www.chartjs.org/dist/2.7.1/Chart.bundle.js"></script>
-   <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
-
+  
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
  
@@ -62,6 +60,8 @@
 <br>
 <br>
    
+<!-- Messages-->
+<div class="container">
      
       {% if MessgeError %}
       <div align="right">
@@ -99,70 +99,61 @@
 
       {% endif %}
 
-    
-      
-   
-    <div style="width:100%;">
-        <canvas id="canvas"></canvas>
+</div>
+
+
+
+      <!-- Graph -->
+    <div class="container">
+      <canvas id="myChart" ></canvas>
     </div>
-    <script>
-        var config = {
-            type: 'line',
-            data: {
-                xLabels: [
-                  {% for item in labels %}
-                    "{{item}}",
-                  {% endfor %}
-                ],
-                yLabels: [ {% for item in range(100,-1,-1) %}
-                    "{{item}}",
-                  {% endfor %}],
-                datasets: [{
-                    label: "My First dataset",
-                    data: [
-                    {% for item in values %}
+          
+   <script>
+   var ctx = document.getElementById("myChart").getContext("2d");
+
+   var data = {
+       labels : [{% for item in labels %}
                       "{{item}}",
-                    {% endfor %}
-],
-                    fill: true,
-                    borderColor: window.chartColors.red,
-                    backgroundColor: window.chartColors.red
-                }]
-            },
-            options: {
-                responsive: true,
-                title:{
-                    display:true,
-                    text:'Chart with Non Numeric Y Axis'
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'תאריכים'
-                        }
-                    }],
-                    yAxes: [{
-                        type: 'category',
-                        position: 'left',
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'ציונים'
-                        },
-                        ticks: {
-                            reverse: true
-                        }
-                    }]
+                  {% endfor %}],
+       datasets : [
+          {
+            label: 'התוצאות שלי',
+                backgroundColor: 'rgb(255, 99, 132,0.2)',
+                borderColor: 'rgb(255, 99, 132)',
+                bezierCurve : true,
+                data : [{% for item in values %}
+                          {{item}},
+                        {% endfor %}]
+          }]
+       }
+
+   var stackedLine = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+        scales: {
+            yAxes: [{
+                stacked: true,
+                scaleLabel: {
+                display: true,
+                 labelString: 'נקודות'
                 }
-            }
-        };
- 
-        window.onload = function() {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myLine = new Chart(ctx, config);
-        };
-    </script>
+              
+            }],
+
+            xAxes: [{
+                stacked: true,
+                scaleLabel: {
+                display: true,
+                 labelString: 'תאריכים'
+                }
+              
+            }]
+        }
+    }
+});
+
+   </script>
+  
 </body>
 </html>
