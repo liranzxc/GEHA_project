@@ -24,11 +24,11 @@
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
 								<div class="img_cont">
-									<img src="https://images-platform.99static.com/Tzb1bkeeHLl-rpIg8DFPKs0x48U=/0x0:1024x1024/500x500/top/smart/99designs-contests-attachments/87/87815/attachment_87815520" class="rounded-circle user_img">
+									<img src="https://www.clalit.co.il/he/article_images/hospitals/article/gehaLogo.jpg" class="rounded-circle user_img">
 									<span class="online_icon"></span>
 								</div>
 								<div class="user_info">
-									<span>Chat with Maryam Naz</span>
+									<span>Chat with GEHA chat bot portal </span>
 								
 								</div>
 								
@@ -38,25 +38,17 @@
 						<div class="card-body msg_card_body" id="chat_body">
 							<div class="d-flex justify-content-start mb-4">
 								<div class="img_cont_msg">
-									<img src="https://images-platform.99static.com/Tzb1bkeeHLl-rpIg8DFPKs0x48U=/0x0:1024x1024/500x500/top/smart/99designs-contests-attachments/87/87815/attachment_87815520" class="rounded-circle user_img_msg">
+									<img src="https://www.clalit.co.il/he/article_images/hospitals/article/gehaLogo.jpg" class="rounded-circle user_img_msg">
 								</div>
 								<div class="msg_cotainer">
-									Hi, how are you samim?
-									<span class="msg_time">8:40 AM, Today</span>
+									Hello {{userdata[2]}} , What can I help you ?
+								
 								</div>
                   </div>
                             
 
 
-							<div class="d-flex justify-content-end mb-4">
-								<div class="msg_cotainer_send">
-									Hi Maryam i am good tnx how about you?
-									<span class="msg_time_send">8:55 AM, Today</span>
-								</div>
-								<div class="img_cont_msg">
-							<img src="https://www.phdmedia.com/new-york/wp-content/uploads/sites/22/2015/05/temp-people-profile.jpg" class="rounded-circle user_img_msg">
-								</div>
-							</div>
+					
 						
                         </div>
                         <form method="POST" name="myform" id="chatbot">
@@ -116,11 +108,11 @@
                              {
                                  var message = `<div class="d-flex justify-content-start mb-4">
 								<div class="img_cont_msg">
-									<img src="https://images-platform.99static.com/Tzb1bkeeHLl-rpIg8DFPKs0x48U=/0x0:1024x1024/500x500/top/smart/99designs-contests-attachments/87/87815/attachment_87815520" class="rounded-circle user_img_msg">
+									<img src="https://www.clalit.co.il/he/article_images/hospitals/article/gehaLogo.jpg" class="rounded-circle user_img_msg">
 								</div>
 								<div class="msg_cotainer">
 									`+data+`
-									<span class="msg_time">8:40 AM, Today</span>
+								
 								</div>
                             </div>`;
 
@@ -133,14 +125,16 @@
                                 var message = `<div class="d-flex justify-content-end mb-4">
 								<div class="msg_cotainer_send">
 									`+data+`
-									<span class="msg_time_send">8:55 AM, Today</span>
+								
 								</div>
 								<div class="img_cont_msg">
-							<img src="https://www.phdmedia.com/new-york/wp-content/uploads/sites/22/2015/05/temp-people-profile.jpg" class="rounded-circle user_img_msg">
+							<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png" class="rounded-circle user_img_msg">
 								</div>
                             </div>`;
                             
-                                $("#chat_body").append(message);
+																$("#chat_body").append(message);
+
+																$("#input").val("");
 
                              }
 
