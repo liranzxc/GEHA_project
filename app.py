@@ -116,6 +116,7 @@ def chart():
 def chat():
     UserInformation = session.pop('userdata', None)
     session["userdata"] = list(UserInformation) ## save user information between pages
+	
     return render_template('chatPage.html', userdata=UserInformation)
  
 
@@ -209,10 +210,8 @@ def GetMediceneFromTable(medicineId : "Medicine_id",selectedList : list):
 
 
 
-def GetIDMedication():
-    UserInformation = session.pop('userdata', None)
-    session["userdata"] = list(UserInformation) ## save user information between pages
-    
+def GetIDMedication(UserInformation):
+   
     User_id = UserInformation[0]
 
     MedicUseQuery = {
@@ -235,9 +234,8 @@ def GetIDMedication():
     return result_FromMedicine_User
 
 
-def GetDiagnosisNameWithDesc():
-    UserInformation = session.pop('userdata', None)
-    session["userdata"] = list(UserInformation) ## save user information between pages
+def GetDiagnosisNameWithDesc(UserInformation):
+    
     User_id = UserInformation[0]
     ## get user id from cookies
 
@@ -301,10 +299,8 @@ def GetMedicWithSideEffect(idMeds:list):
         result.append(GetMediceneFromTable(medID[0],["Medicine_Name","Side_Effects"]))
     return result
 
-def GetMedicWithDosage():
-    UserInformation = session.pop('userdata', None)
-    session["userdata"] = list(UserInformation) ## save user information between pages
-    
+def GetMedicWithDosage(UserInformation):
+   
     User_id = UserInformation[0]
 
     MedicUseQuery = {
@@ -327,9 +323,8 @@ def GetMedicWithDosage():
     return dosageInformationFromDB
 
 
-def DepartmentDesc():
-    UserInformation = session.pop('userdata', None)
-    session["userdata"] = list(UserInformation) ## save user information between pages
+def DepartmentDesc(UserInformation):
+   
     User_id = UserInformation[0]
     ## get user id from cookies
 
@@ -380,14 +375,14 @@ def DefaultMessage():
     return """ I can not help you in this field. I can help you in the following fields: medication, diagnosis, department, hospitalization type, personal care and rights"""
 
 
-def Parser(dataComing : "input from user"):
+def Parser(dataComing : "input from user",UserInformation : list):
     dataComing = dataComing.lower()
 
     mykeywordsDic = {
 
         "med" : {
 
-            "keywords" : ["pill","medication", "medicines","drug","drugs"],
+            "keywords" : ["pill","medication", "medicines","drug","drugs","תרופה"],
             "sideeffects" : ["side effects","side effect"],
             "dosage" : ["dosage"]
         },
@@ -410,13 +405,13 @@ def Parser(dataComing : "input from user"):
     }
 
     if(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["med"]["keywords"])):
-        idMeds = GetIDMedication()
+        idMeds = GetIDMedication(UserInformation)
 
         if(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["med"]["sideeffects"])):
             return GetMedicWithSideEffect(idMeds)
             # return name + side effect
         elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["med"]["dosage"])):
-            dosageInformation =  GetMedicWithDosage()
+            dosageInformation =  GetMedicWithDosage(UserInformation)
             namesMedic = list(zip(*GetMedicationWithDesc(idMeds)))[0]
             mytext = ""
             for name,information in zip(namesMedic,dosageInformation):
@@ -438,14 +433,16 @@ def Parser(dataComing : "input from user"):
             return mytextparser
 
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["diagnosis"]["keywords"])):
-        return GetDiagnosisNameWithDesc()
+        return GetDiagnosisNameWithDesc(UserInformation)
 
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["hospitalization"]["keywords"])):
         pass # To Do after Or created table
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["therapist"]["keywords"])):
-        return TherapistDesc()
+        return TherapistDesc(UserInformation)
+
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["department"]["keywords"])):
-        return DepartmentDesc()
+        return DepartmentDesc(UserInformation)
+
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["rights"]["keywords"])):
         return rightsUrl()
     else :
@@ -455,9 +452,8 @@ def Parser(dataComing : "input from user"):
 
     
 
-def TherapistDesc():
-    UserInformation = session.pop('userdata', None)
-    session["userdata"] = list(UserInformation) ## save user information between pages
+def TherapistDesc(UserInformation):
+  
     User_id = UserInformation[0]
     ## get user id from cookies
 
@@ -508,8 +504,9 @@ def TherapistDesc():
 @app.route("/chatbot" ,methods =["POST"])
 def chatbot():
     dataComing = request.form["data"]
-    
-    return Parser(dataComing)
+    UserInformation = session.pop('userdata', None)
+    session["userdata"] = list(UserInformation) ## save user information between pages
+    return Parser(dataComing,UserInformation)
 
 
 if __name__ == '__main__':

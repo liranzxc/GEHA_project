@@ -84,9 +84,10 @@
                                 AppendToChat(input,"human");
 
 
-                                var url = "http://localhost:5000/chatbot";
-                    
-                                $.post(url,{data:input},function(data,status){ //ajax
+																var url = "http://127.0.0.1:5000/chatbot";
+																
+															
+                                $.post(url,{data:input },function(data,status){ //ajax
                     
                                       AppendToChat(data,"bot");
                                 });
