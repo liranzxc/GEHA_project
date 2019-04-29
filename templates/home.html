@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="/static/css/homestyle.css">
 </head>
 <body>
     
@@ -50,19 +50,62 @@
         </div>
       </nav>
     
-      <div class="container">
+
+      <header>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+              <!-- Slide One - Set the background image for this slide in the line below -->
+              <div class="carousel-item active" style="background-image: url('/static/img/pic2.jpeg')">
+                <div class="carousel-caption d-none d-md-block">
+                  <h3 class="display-4">פורטל מטופלים</h3>
+                  <p class="lead">  המרכז לבריאות הנפש גהה</p>
+                </div>
+              </div>
+              <!-- Slide Two - Set the background image for this slide in the line below -->
+              <div class="carousel-item" style="background-image: url('/static/img/pic1.jpeg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">פורטל מטופלים</h3>
+                    <p class="lead">  המרכז לבריאות הנפש גהה</p>
+                </div>
+              </div>
+              <!-- Slide Three - Set the background image for this slide in the line below -->
+              <div class="carousel-item" style="background-image: url('/static/img/pic3.jpeg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="display-4">פורטל מטופלים</h3>
+                    <p class="lead">  המרכז לבריאות הנפש גהה</p>
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+          </div>
+        </header>
+        
+        <!-- Page Content -->
+        
+          <div class="container" style="text-align: center">
+            <h1 class="font-weight-light">ברוכים הבאים </h1>
+            <p class="lead">פורטל מטופלים - הנגשת מידע </p>
+          </div>
+      
 
 
-            <img src="https://www.clalit.co.il/he/article_images/hospitals/article/gehaLogo.jpg">
 
-            <p>
-                    פורטל מטופלים גהה <!-- טקסט רקע-->
-            </p>
+            <div class="container" style="text-align: center">
+            <img src="/static/img/calalitWithGeha.jpeg">
 
-            
-
-      </div>
-     
+          </div>
    
 
 

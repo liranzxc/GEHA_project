@@ -369,7 +369,7 @@ def DepartmentDesc(UserInformation):
     return result
 
 def rightsUrl():
-    return '<a href="https://hospitals.clalit.co.il/geha/he/patient/Pages/rights.aspx">Right Page </a>'
+    return 'For information about your rights click here: <a href="https://hospitals.clalit.co.il/geha/he/patient/Pages/rights.aspx" target="_blank">Right Page </a>'
 
 def DefaultMessage():
     return """ I can not help you in this field. I can help you in the following fields: medication, diagnosis, department, hospitalization type, personal care and rights"""
@@ -382,17 +382,17 @@ def Parser(dataComing : "input from user",UserInformation : list):
 
         "med" : {
 
-            "keywords" : ["pill","medication", "medicines","drug","drugs","תרופה"],
+            "keywords" : ["pill","medication", "medicines","drug","drugs"],
             "sideeffects" : ["side effects","side effect"],
             "dosage" : ["dosage"]
         },
         "diagnosis" : {
             "keywords" : ["diagnosis", "prognosis", "diagnosis"]
         },
-        "hospitalization" : {
-                "keywords" : ["hospitalization"]
+      #  "hospitalization" : {
+       #         "keywords" : ["hospitalization"]
 
-        },
+        #},
         "therapist" : {
              "keywords" : ["therapist", "personal therapist"]
         },
@@ -400,7 +400,7 @@ def Parser(dataComing : "input from user",UserInformation : list):
             "keywords" : ["class", "department"]
         },
         "rights" : {
-            "keywords" : ["rights", "privilege"]
+            "keywords" : ["rights", "privilege","right"]
         }
     }
 
@@ -408,7 +408,15 @@ def Parser(dataComing : "input from user",UserInformation : list):
         idMeds = GetIDMedication(UserInformation)
 
         if(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["med"]["sideeffects"])):
-            return GetMedicWithSideEffect(idMeds)
+           sideEffectData = GetMedicWithSideEffect(idMeds) # (medicName , sideEffect)
+           mytext = "" 
+           for MedicName_SideEffect in sideEffectData:
+               mytext +=  "<strong> Medication name : </strong>" + MedicName_SideEffect[0] + \
+                 "<strong> Side Effects : </strong>" +  MedicName_SideEffect[1]  + " <br/> &#13;&#10;"
+           
+           return mytext
+
+
             # return name + side effect
         elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["med"]["dosage"])):
             dosageInformation =  GetMedicWithDosage(UserInformation)
@@ -416,7 +424,7 @@ def Parser(dataComing : "input from user",UserInformation : list):
             mytext = ""
             for name,information in zip(namesMedic,dosageInformation):
                 mytext += "<strong> Medication name : </strong>" + name + "<strong>  Dosage : </strong> "+ \
-                information[0] + "," + information[1]+" <strong> Type of taking :   </strong> "+ information[2] + "&#10;"
+                information[0] + "," + information[1]+". <strong> Type of taking :   </strong> "+ information[2] + " <br/> &#13;&#10;"
 
 
             return mytext
@@ -425,20 +433,37 @@ def Parser(dataComing : "input from user",UserInformation : list):
             listofTuples = GetMedicationWithDesc(idMeds)
             mytext = ""
             for item in listofTuples:
-                mytext +=  "<strong> Medication name : </strong>  " + item[0] +" &#10; " +"<strong> Description: </strong> " + item[1] +"&#10;"+"<strong> Addication guildline: </strong> " +item[2] + "&#10;"
+                mytext +=  "<strong> Medication name : </strong>  " + item[0] + " <br/> &#13;&#10;" +"<strong> Description: </strong> " + item[1] + " <br/> &#13;&#10;"+"<strong> Addication guildline: </strong> " +item[2] + " <br/> &#13;&#10;"
             
             return mytext
 
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["diagnosis"]["keywords"])):
-        return GetDiagnosisNameWithDesc(UserInformation)
+        DiagnosisData =  GetDiagnosisNameWithDesc(UserInformation)
+       
+        mytext =  "<strong> Diagnosis name : </strong>" + DiagnosisData[0] + \
+            "<strong> Description : </strong>" +  DiagnosisData[1]  + " <br/> &#13;&#10;"
+           
+        mytext +=  " <br/> &#13;&#10;" + "<strong> This diagnosis is not final and may change </strong> ."
+        return mytext
 
-    elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["hospitalization"]["keywords"])):
-        pass # To Do after Or created table
+
+   # elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["hospitalization"]["keywords"])):
+    #    pass # To Do after Or created table
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["therapist"]["keywords"])):
-        return TherapistDesc(UserInformation)
+        therapData =  TherapistDesc(UserInformation)
+        mytext =  "<strong> Therapist name : </strong>" + therapData[0] + \
+            "<strong> Profession : </strong>" +  therapData[1] + " <br/> &#13;&#10;"
+
+        return mytext
+        
 
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["department"]["keywords"])):
-        return DepartmentDesc(UserInformation)
+        DepartData = DepartmentDesc(UserInformation)
+        mytext =  "<strong> Department name : </strong>" + DepartData[0] + \
+            "<strong> Department type : </strong>" +  DepartData[1]  + " <br/> &#13;&#10;"
+
+        return mytext
+
 
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["rights"]["keywords"])):
         return rightsUrl()
