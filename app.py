@@ -416,21 +416,18 @@ def Parser(dataComing : "input from user",UserInformation : list):
             mytext = ""
             for name,information in zip(namesMedic,dosageInformation):
                 mytext += "<strong> Medication name : </strong>" + name + "<strong>  Dosage : </strong> "+ \
-                information[0] + "," + information[1]+" <strong> Type of taking :   </strong> "+ information[2]
+                information[0] + "," + information[1]+" <strong> Type of taking :   </strong> "+ information[2] + "&#10;"
 
 
             return mytext
             # return name + dosage
-        else:
+        else: # pill only
             listofTuples = GetMedicationWithDesc(idMeds)
-            mytextparser = str(list(map(lambda item : "<strong> Medication name : </strong>  " + item[0] + "<strong> Description: </strong> " + item[1] +" <strong> Addication guildline: </strong> " +item[2] ,listofTuples)))
-            mytextparser = mytextparser[2:-2]
-            mytextparser = mytextparser.replace("\r","")
-            mytextparser = mytextparser.replace("\n","")
-            mytextparser = mytextparser.replace("\r\n","")
-
-            print(mytextparser)
-            return mytextparser
+            mytext = ""
+            for item in listofTuples:
+                mytext +=  "<strong> Medication name : </strong>  " + item[0] +" &#10; " +"<strong> Description: </strong> " + item[1] +"&#10;"+"<strong> Addication guildline: </strong> " +item[2] + "&#10;"
+            
+            return mytext
 
     elif(CheckIfKeywordsInSentence(dataComing,mykeywordsDic["diagnosis"]["keywords"])):
         return GetDiagnosisNameWithDesc(UserInformation)
