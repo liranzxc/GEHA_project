@@ -426,7 +426,6 @@ def Parser(dataComing : "input from user",UserInformation : list):
                 mytext += "<strong> Medication name : </strong>" + name + "<strong>  Dosage : </strong> "+ \
                 information[0] + "," + information[1]+". <strong> Type of taking :   </strong> "+ information[2] + " <br/> &#13;&#10;"
 
-
             return mytext
             # return name + dosage
         else: # pill only
