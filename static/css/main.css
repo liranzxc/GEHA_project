@@ -5,27 +5,6 @@
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 
-@font-face {
-  font-family: Poppins-Regular;
-  src: url('../fonts/poppins/Poppins-Regular.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Medium;
-  src: url('../fonts/poppins/Poppins-Medium.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-Bold;
-  src: url('../fonts/poppins/Poppins-Bold.ttf'); 
-}
-
-@font-face {
-  font-family: Poppins-SemiBold;
-  src: url('../fonts/poppins/Poppins-SemiBold.ttf'); 
-}
-
-
 
 
 /*//////////////////////////////////////////////////////////////////
@@ -39,12 +18,11 @@
 
 body, html {
 	height: 100%;
-	font-family: Poppins-Regular, sans-serif;
+	
 }
 
 /*---------------------------------------------*/
 a {
-	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -69,7 +47,6 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 p {
-	font-family: Poppins-Regular;
 	font-size: 14px;
 	line-height: 1.7;
 	color: #666666;
@@ -205,7 +182,6 @@ iframe {
 }
 
 .label-input100 {
-  font-family: Poppins-Regular;
   font-size: 13px;
   color: #666666;
   line-height: 1.5;
@@ -387,7 +363,6 @@ textarea.input100 {
   right: 2px;
   pointer-events: none;
 
-  font-family: Poppins-Regular;
   color: #c80000;
   font-size: 13px;
   line-height: 1.4;
@@ -546,7 +521,6 @@ textarea.input100 {
 }
 
 .select2-results__options {
-  font-family: Poppins-Regular;
   font-size: 15px;
   color: #333333;
   line-height: 1.2;
@@ -555,7 +529,6 @@ textarea.input100 {
 .select2-search--dropdown .select2-search__field {
   border: 1px solid #aaa;
   outline: none;
-  font-family: Poppins-Regular;
   font-size: 15px;
   color: #333333;
   line-height: 1.2;
