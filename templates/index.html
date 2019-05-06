@@ -21,6 +21,12 @@
                   <div class="col-md-9 col-lg-8 mx-auto">
                     <h3 class="login-heading mb-4">פורטל מטופלים גהה</h3>
                     
+
+
+                     {% if unvalid %}
+                      <h4 style="color: red;"> {{ unvalid}}</h4>
+                     {%endif%}
+
                     <!-- inputID  inputPassword -->
                     <form method="POST" action="/">
                       <div class="form-group">

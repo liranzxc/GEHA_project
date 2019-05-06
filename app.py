@@ -97,13 +97,13 @@ def login():
 
         print(UserInformation)
        
-        session["userdata"] = list(UserInformation) ## save user information between pages
 
         if User_exist: 
             # user exist 
+            session["userdata"] = list(UserInformation) ## save user information between pages
             return render_template("home.html",userdata=UserInformation)
         else:
-            return render_template("index.html")
+            return render_template("index.html",unvalid="סיסמא אינה נכונה")
         
     else:
         return render_template("index.html")
