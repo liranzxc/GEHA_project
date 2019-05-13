@@ -339,7 +339,7 @@ def Parser(dataComing : "input from user",UserInformation : list):
 
             "med" : {
 
-                "keywords" : ["pill","medication", "medicines","drug","drugs"],
+                "keywords" : ["pill","medication", "medicines","drug","drugs","medicine","cure","remedy","medicament"],
                 "sideeffects" : ["side effects","side effect"],
                 "dosage" : ["dosage"]
             },
